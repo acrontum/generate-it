@@ -65,7 +65,7 @@ Install as a local devDependency:
 
 ## Additional tips and tricks
 
-#### Passing the request variable from the router to the domain
+#### Passing the request variables from the router to the domain
 In case some of your domain methods need to access the entire request object, you can easily do this by adding the following to the desired route in your OpenAPI file:
 `x-passRequest: true`
 
