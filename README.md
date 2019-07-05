@@ -7,11 +7,9 @@
 - [cli options](#cli-options)
 - [Installation](#installation)
 - [Additional tips and tricks](#additional-tips-and-tricks)
+    - [Passing the request variables from the router to the domain](#passing-the-request-variables-from-the-router-to-the-domain)
     - [Avoiding overwriting previously written changes](#avoiding-overwriting-previously-written-changes)
     - [Usage of security definitions combined with middlewares](#usage-of-security-definitions-combined-with-middlewares)
-- [Example](#example)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Roadmap
 - Add docker ability to both es6 and ts templates.
