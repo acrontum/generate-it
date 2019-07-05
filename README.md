@@ -1,16 +1,6 @@
 # OpenAPI Nodegen
-OpenAPI Nodegen is a tool which will you generate an ES6 NodeJS Express Server based on the OpenAPI (YML) file that you provide it. 
 
-In addition to the server, you can also stub the domain layer with auto mock generators to get moving fast, use the `--mocked` option.
-
-The server is generated using the [Nunjucks Template](https://www.npmjs.com/package/nunjucks) engine (an engine which is a port of [jinja2](http://jinja.pocoo.org))
-
-It is heavily advised to use [boats](https://www.npmjs.com/package/boats) to automatically standardise openapi file architecture and operation ids.
-___
-
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+## Table of Contents
 
 - [Roadmap](#roadmap)
 - [Example package.json script](#example-packagejson-script)
