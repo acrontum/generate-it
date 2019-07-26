@@ -18,8 +18,24 @@ Once the server is built the first time, subsequent runs will replace the `src/h
 
 Subsequent runs post 1st run will not replace the domain layer or any other application code; this also means after the 1st run, should you add new routes to an existing tag, the corresponding methods will not appear, you must then add them by hand.
 
+## Installation
+Install as a local devDependency:
+```
+npm i --save-dev openapi-nodegen
+```
 
-## cli options
+After installing, add a build script to your `package.json` file:
+```
+"scripts": {
+    "generate:nodegen": "openapi-nodegen ./openapi.yml -m",
+}
+```
+
+> make sure you change the "./openapi.yml" to a path that matches your environment.
+
+The above script makes use of the `-m` option, for an understanding on what this means and all other options please see (this page)[./cli-options.md]
+
+## CLI Options
 ```
   Usage: cli <swaggerFile> [options] 
   Options:
@@ -32,8 +48,55 @@ Subsequent runs post 1st run will not replace the domain layer or any other appl
     -h, --help                              output usage informati
 ```
 
-## Domain Layer
+## Routing
+The route files are automatically built based on the described routes in the OpenAPI Spec file.
 
+Middlewares: OpenAPI-Nodegen will inject, based on the data within the yaml file, to each route the following middleware when required:
+- JWT Validation
+- API Key protection
+- Input validation with [Celebrate](https://www.npmjs.com/package/celebrate)
+
+Domain: The data is then passed to a given domain method.
+
+Output transformer: Each route will then automatically reduce the output to that which is declared in the response objects of the yaml file.
+
+### Route security
+To help the Nodegen understanding which security definitions are API keys and which are JWT tokens, you will need to give them one of the following names `apiKeyX` / `jwtTokenX` (the X can be replaced with any other character, and allows you to declare multiple security definitions of the same type for a single api if needed).
+
+An example of an API key security definition:
+```yaml
+securityDefinitions:
+  apiKey1:
+    type: apiKey
+    in: header
+    name: 'x-api-key'
+```
+
+And an example of a JWT token security definition:
+```yaml
+securityDefinitions:
+  jwtToken1:
+    type: apiKey
+    in: header
+    name: 'Authorization'
+```
+
+### Automatic Route Validation Protection
+OpenAPI allows one to very clearly state what the expected input format should and should not be. Based on this very clear definition, OpenAPI-Nodegen auto-generates [Joi](https://github.com/hapijs/joi) validation syntax for use with [celebrate](https://www.npmjs.com/package/celebrate).
+
+The celebrate package with the generated Joi syntax will:
+- Validate the input provided, ensuring the datatypes are as expected.
+- Not allow non-declared input to pass the front door, ie not hit your domain layer; should you pass "email=john@gmail.com" but this is not declared in the OpenAPI file, the celebrate will throw a 422 http status code in response.
+
+### Output Transformer
+Your OpenAPI file you will have already declared quite strictly what to expect in response from the server, OpenAPI-Nodegen takes this information and auto-generates equally as strict output transformers.
+
+Taking the idea from [transformers](https://fractal.thephpleague.com/transformers/) all output is passed through [objectReduceByMap](https://www.npmjs.com/package/object-reduce-by-map) which will strip out non-defined content from the domain layer.
+
+OpenAPI-nodegen will generate an object map and pass this along with the domain output to the above function. 
+
+
+## Domain Layer
 Much the same as most openapi generators, the domain layer's method names are mapped to the paths operation id.
 
 ### Domain layer api token
@@ -67,72 +130,6 @@ get:
         $ref: '#/definitions/Pets'
   x-passRequest: true        
 ```
-
-## Installation
-Install as a local devDependency:
-```
-npm i --save-dev openapi-nodegen
-```
-
-After installing, add a build script to your `package.json` file:
-```
-"scripts": {
-    "generate:nodegen": "openapi-nodegen ./openapi.yml -m",
-}
-```
-
-> make sure you change the "./openapi.yml" to a path that matches your environment.
-
-The above script makes use of the `-m` option, for an understanding on what this means and all other options please see (this page)[./cli-options.md]
-
-
-## Validate Input
-
-OpenAPI allows one to very clearly state that the expect input format should and should not be.
-
-Based on this very clear definition, OpenAPI-Nodegen auto-generates [Joi](https://github.com/hapijs/joi) validation syntax for use with [celebrate](https://www.npmjs.com/package/celebrate).
-
-The celebrate package with the generated Joi syntax will:
-- Validate the input provided, ensuring the datatypes are as expected.
-- Not allow non-declared input to pass the front door; should you pass "email=john@gmail.com" but this is not declared in the OpenAPI file, the celebrate will throw a 422 http status code in response.
-
-
-## Security
-
-### Avoiding overwriting previously written changes
-When trying to generate a server on top of a previously generated server, you need to take into account that all the files
-inside `src/http/nodegen` are going to be overwritten.
-If you are interested in creating a custom middleware, please make sure to place it outside `src/http/nodegen`, and use the `middlewaresImporter.js` (which is not going to be overwritten) to import it.
-
-### Usage of security definitions combined with middlewares
-In addition to routes, controllers, transformers, and validators, the Nodegen also generates a few middlewares that you would most likely like to use in case you wanna protect some of yours routes with an `API key` / `JWT token`.
-To help the Nodegen understanding which security definitions are API keys and which are JWT tokens, you will need to give them one of the following names `apiKeyX` / `jwtTokenX` (the X can be replaced with any other character).
-An example of an API key security definition:
-
-```yaml
-securityDefinitions:
-  apiKey1:
-    type: apiKey
-    in: header
-    name: 'x-api-key'
-```
-
-And an example of a JWT token security definition:
-```yaml
-securityDefinitions:
-  jwtToken1:
-    type: apiKey
-    in: header
-    name: 'Authorization'
-```
-
-
-
-## Transformers
-
-As in your OpenAPI file you will have already declared quite strictly what to expect in response from the server, OpenAPI-Nodegen takes this information and auto-generates equally as strict output transformers.
-
-Taking the idea from [transformers](https://fractal.thephpleague.com/transformers/) all output is passed through [objectReduceByMap](https://www.npmjs.com/package/object-reduce-by-map) which will strip out non-defined content from the domain layer.
 
 
 ## Roadmap
