@@ -54,7 +54,7 @@ A great big loop over all the paths essentially.
 
 Using json-schema-ref-parser a big object is formed. Openapi-nodegen then loops over all the api paths in the formed object passing each paths object to a nunjucks template.
 
-
+Please take a look at the exmaple
 
 ## Routing
 The route files are automatically built based on the described routes in the OpenAPI Spec file.
