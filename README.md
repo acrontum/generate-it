@@ -6,17 +6,18 @@ Automate the donkey work of manually typing out a server's routes, validation an
 
 OpenAPI Nodegen is an opensourced tool from [https://www.acrontum.com](https://www.acrontum.com)
 
-The tool will build a REST Api server with the expressjs application framework;
-- All routes are validated with celebrate, which under the hood maps to Joi and does a little more than just validation.
-- All routes then map to their own domain layer (named via the path tag) for which you have two options when starting:
-  -  Just using this tool without any options will leave you with a method stub; an empty method for you to fill in.
-  -  Passing the `-m` or `--mocked` option will inject the use of the [openapi-nodegen-mockers](https://www.npmjs.com/package/openapi-nodegen-mockers) helper and instantly give you the ability to use your server as a mock server to quickly build a frontend,
+It is a port of swagger-codegen with the help of json-schema-ref-parser. Instead of using the moustache template engine it uses the more flexible nunjucks.
 
-> !Important: Do not give a path more than 1 tag. This will, as with many code-generators result in duplicate code.
-  
-Once the server is built the first time, subsequent runs will replace the `src/http/nodegen` directory with new content, as such, do not modify these files directly.
+On top of the base codegen functionality, this tool can:
+- Generate a mock server from a single api file (swagger/openapi):
+  -  Passing the `-m` or `--mocked` option will inject the use of the [openapi-nodegen-mockers](https://www.npmjs.com/package/openapi-nodegen-mockers) helper and instantly give you the ability to use your server as a mock server to quickly build a frontend.
+- Generate domain files for your server based on `___stub.<js|ts>.njk` files
+  - Eg: [___stub.ts.njk](https://github.com/acrontum/openapi-nodegen/blob/master/templates/typescript/src/domains/___stub.ts.njk)
+  - The stub files will never be overwritten after their 1st generation, instead new methods and changes to methods will be run through a diff tool and output in the console.
+- Fetch templates via git eg:
+  - `openapi-nodegen ./api_1.0.0.yml -o ./src/services/client -t https://github.com/acrontum/openapi-nodegen-typescript-server-client.git`
+  - There are only 2 template options to choose from that nodegen ships with, an es6 server and a Typescript server, if you require anything else you must use a git url.
 
-Subsequent runs post 1st run will not replace the domain layer or any other application code; this also means after the 1st run, should you add new routes to an existing tag, the corresponding methods will not appear, you must then add them by hand.
 
 ## Installation
 Install as a local devDependency:
@@ -39,14 +40,21 @@ The above script makes use of the `-m` option, for an understanding on what this
 ```
   Usage: cli <swaggerFile> [options] 
   Options:
-
-    -V, --version                           output the version number
+    -o, --output <outputDir>                Output directory for the the generated files (defaults to current directory the tool is run from) (default: ./)
+    -t, --template <template>               Templates to use (es6 or typescript or a git url) (default: es6)
     -m, --mocked                            If passed, the domains will be configured to return dummy content.
-    -o, --output <outputDir>                directory where to put the generated files (defaults to current directory) (default: /home/carmichael/code/open-source-projects/openapi-nodegen)
-    -t, --template <template>               template to use (es6 or typescript [typescript is currently not working]) (default: es6)
-    -i, --ignored-modules <ignoredModules>  ignore the following type of modules (routes, controllers, domains, validators, transformers) in case they already exist (separated by commas)
-    -h, --help                              output usage informati
+    -i, --ignored-modules <ignoredModules>  Ignore the following type of modules (routes, controllers, domains, validators, transformers) in case they already exist (separated by commas)
+    -v,                                     versbose logging
+    -V, --version                           Output the version number
+    -h, --help                              Output help information
 ```
+
+## How it works
+A great big loop over all the paths essentially.
+
+Using json-schema-ref-parser a big object is formed. Openapi-nodegen then loops over all the api paths in the formed object passing each paths object to a nunjucks template.
+
+
 
 ## Routing
 The route files are automatically built based on the described routes in the OpenAPI Spec file.
@@ -130,13 +138,3 @@ get:
         $ref: '#/definitions/Pets'
   x-passRequest: true        
 ```
-
-
-## Roadmap
-- [x] Make the mock generators more intelligent, instead of "dumb" random text responses return "testable" content.
-- [x] Ensure this package can be used for oa3 files, currently the block is on the generation of the celebrate validation layer, not a big issue to resolve but in oa3 everything is pretty much in a schema block in the request parameters which is a breaking change from oa2.
-- [x] Add docker ability to both es6 and ts templates.
-- [x] Update the Typescript templates to use Nunjucks over moustache. They are currently 100% broken awaiting the port over.
-- [x] Convert the mock generators to the typescript tpl.
-- [ ] Optionally add in socket connections via vli args.
-- [ ] Optionally add in mongoose via cli args.
