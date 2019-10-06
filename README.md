@@ -6,7 +6,7 @@ Automate the donkey work of manually typing out a server's routes, validation an
 
 OpenAPI Nodegen is an opensourced tool from [https://www.acrontum.com](https://www.acrontum.com)
 
-It is a port of swagger-codegen with the help of json-schema-ref-parser. Instead of using the moustache template engine it uses the more flexible nunjucks.
+It is a port of swagger-codegen with the help of json-schema-ref-parser. Instead of using the moustache template engine it uses the more flexible nunjucks with a lot of tpl helper functions.
 
 On top of the base codegen functionality, this tool can:
 - Generate a mock server from a single api file (swagger/openapi):
@@ -16,8 +16,18 @@ On top of the base codegen functionality, this tool can:
   - The stub files will never be overwritten after their 1st generation, instead new methods and changes to methods will be run through a diff tool and output in the console.
 - Fetch templates via git eg:
   - `openapi-nodegen ./api_1.0.0.yml -o ./src/services/client -t https://github.com/acrontum/openapi-nodegen-typescript-server-client.git`
-  - There are only 2 template options to choose from that nodegen ships with, an es6 server and a Typescript server, if you require anything else you must use a git url.
-
+  - There are a few template git urls currently published:
+    - https://github.com/acrontum/openapi-nodegen-typescript-server
+      - All types derived from the openapi file.
+      - Uses the express http engine
+    - https://github.com/acrontum/openapi-nodegen-es6-server
+      - Uses the express http engine
+    - https://github.com/acrontum/openapi-nodegen-typescript-api-test-rig
+      - Generates stub files to write tests for.
+      - Uses jest and request promise.
+      - Written in typescript.
+    - https://github.com/acrontum/openapi-nodegen-typescript-server-client (WIP)
+      - Work in progress
 
 ## Installation
 Install as a local devDependency:
@@ -28,7 +38,7 @@ npm i --save-dev openapi-nodegen
 After installing, add a build script to your `package.json` file:
 ```
 "scripts": {
-    "generate:nodegen": "openapi-nodegen ./openapi.yml -m",
+    "generate:nodegen": "openapi-nodegen ./openapi.yml -t https://github.com/acrontum/openapi-nodegen-typescript-server.git",
 }
 ```
 
@@ -41,7 +51,7 @@ The above script makes use of the `-m` option, for an understanding on what this
   Usage: cli <swaggerFile> [options] 
   Options:
     -o, --output <outputDir>                Output directory for the the generated files (defaults to current directory the tool is run from) (default: ./)
-    -t, --template <template>               Templates to use (es6 or typescript or a git url) (default: es6)
+    -t, --template <template>               Templates https git url eg https://github.com/acrontum/openapi-nodegen-typescript-server.git
     -m, --mocked                            If passed, the domains will be configured to return dummy content.
     -i, --ignored-modules <ignoredModules>  Ignore the following type of modules (routes, controllers, domains, validators, transformers) in case they already exist (separated by commas)
     -v,                                     versbose logging
