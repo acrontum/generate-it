@@ -36,7 +36,21 @@ By default OpenAPI Nodegen will run a git pull (unless pegged to a tag) on each 
 
 It is required that the 1st run is done with an internet connection, this flag will subsequently just use the cached tpl file generated.
 
-## Nunjucks
+## Stub (domain) versions
+The core will store the last few version of the sub files generated cache compare folder:
+```
+.openapi-nodegen/cache/compare
+```
+
+These files are retained to allow the core to compare the file differences upon the next file generation. For example, new methods for a domain or new request params. The differences will be printed to the console.
+
+To allow other developers in a team to make use of this comparison history you would want ot keep the.
+
+#### Turn the comparison off
+```
+--dont-run-comparison-tool
+```
+A [command line](/_pages/cli.md) argument option when passed will not run the comparison.
 
 
 ## Mocked responses
