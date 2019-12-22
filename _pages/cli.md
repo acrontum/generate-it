@@ -1,4 +1,4 @@
-This tool is primarily designed for use over command line.
+This tool is primarily designed to be used over command line.
 
 Here are the available options:
 ```

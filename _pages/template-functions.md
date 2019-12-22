@@ -1,10 +1,10 @@
 ## Nunjucks
 
-As already mentioned, all files are rendered by using the [nunjucks](https://mozilla.github.io/nunjucks/templating.html) template engine. With doing anything this means you instantly have full access to all other their built in helper functions.
+All files are rendered by using the [nunjucks](https://mozilla.github.io/nunjucks/templating.html) template engine. This means you have full access to all other the Nunjucks built in helper functions; set variables, conditionals, loops etc etc.
 
 ## Lodash
 
-To extend the functionality yet further, [lodash](https://lodash.com/docs/4.17.15) has also been injected into the mix. In this [docker-compose.yml](https://github.com/acrontum/openapi-nodegen-typescript-server/blob/master/docker-compose.yml#L11) file you can see how to access lodash within a template. 
+To extend the functionality of Nunjucks, [lodash](https://lodash.com/docs/4.17.15) has also been injected into the mix. In this [docker-compose.yml](https://github.com/acrontum/openapi-nodegen-typescript-server/blob/master/docker-compose.yml#L11) file you can see how to access lodash within a template. 
 
 ## Openapi-nodegen built-in tpl helpers
 
@@ -14,6 +14,7 @@ To see the full data object that was passed to any template called the function 
 ```
 {{ getContext() | dump }}
 ```
+
 ###### Tip
 Create an `___op` file within a folder called context eg, `nodegen/context/___op.json.njk`.
 

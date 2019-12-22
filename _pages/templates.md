@@ -1,5 +1,3 @@
-
-
 ## .nodegenrc
 Every template repository must contain at its root a [.nodegenrc](https://github.com/acrontum/openapi-nodegen-typescript-server/blob/master/.nodegenrc) file.
 
@@ -26,7 +24,7 @@ There are 5 core types of template file. Each have their own naming pattern and 
 - STUB
 - OTHER
 
-All files starting with 3* underscores "`___`" will be generated multiple times for each path in the url section group. All other files are only generated once then never touched again, thus allowing a developer to customise them.
+All files starting with 3* underscores "`___`" will be generated multiple times for each path in the url section group (operation). All other files are only generated once then never touched again, thus allowing a developer to customise them.
 
 #### OPERATION
 
