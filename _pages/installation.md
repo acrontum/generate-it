@@ -27,4 +27,6 @@ After installing, add a build script to your `package.json` file with the releva
 
 > make sure you change the "./openapi.yml" to a path that matches your environment.
 
-For simple spec files it generally takes about 1-5 seconds to generate. For more complex API files, up to 30 seconds, where the bulk of the time bottleneck is around the interface content generation. This is aimed to be fixed soon.
+## Generation time
+
+Small spec files take around 1-2 seconds, medium spec files (around 35 routes) takes around 4-6 seconds... bigger than that, we've not built any microservices with many more routes than that.
