@@ -100,8 +100,8 @@ Each set of templates will evolve their own specific attribute requirements. Add
 
 An example of a template specific custom attribute usage: https://github.com/acrontum/openapi-nodegen-typescript-server/blob/master/src/http/nodegen/routes/___op.ts.njk#L28
 
-
-
+## .nodegenrc file
+For more details please read this page: [templates](/_pages/templates.md)
 
 
 

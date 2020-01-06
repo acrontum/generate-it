@@ -5,16 +5,24 @@ The contents are simple but instruct the core of 3 key aspects:
 - Which folder contains the http layer, referred to as the nodegen directory: `nodegenDir`
 - Which folder contains the mock files, referred to as the nodegen nodegenMockDir
 - What type of output the templates create, `client` or `server`
-
+- File helpers: https://github.com/acrontum/openapi-nodegen-typescript-server/blob/master/.nodegenrc#L6
 
 Example:
 ```json
 {
   "nodegenDir": "src/http/nodegen",
   "nodegenMockDir": "src/domains/__mocks__",
-  "nodegenType": "server"
+  "nodegenType": "server",
+  "helpers": {
+    "stub": {
+      "jwtType": "JwtAccess",
+      "requestType": "NodegenRequest"
+    }
+  }
 }
 ```
+
+The full contents of the nodegenrc file are passed to the templates within the config: [TemplateVariables.ts](https://github.com/acrontum/openapi-nodegen/blob/master/src/interfaces/TemplateVariables.ts)
 
 ## Available file types
 There are 5 core types of template file. Each have their own naming pattern and handled slightly differently by the core:
