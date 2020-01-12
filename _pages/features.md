@@ -92,6 +92,14 @@ get:
   x-passRequest: true        
 ```
 
+#### Allow non authenticated request to access domain
+With some API designs there is the need to offer 1 API route which returns content for authenticated users and non-authenticated users. The content could be a newsfeed for example with authenticated users getting a extra attributes in the new objects returned compared to non-authenticated users.
+
+This can be acheived by marking a route with an additional attribute: `x-passThruWithoutJWT`
+
+The result of this feature is `pathParamsToDomainParams` tpl helper will pass the forced type (.nodegenrc: `helpers.stub.jwtType`) as `| undefined` which is seen in the [typescript server](https://github.com/acrontum/openapi-nodegen-typescript-server#allow-non-authenticated-request-to-access-domain).
+
+
 ## Access all path attributes 
 
 The full path object from the API spec file is passed to the [templates](/_pages/templates.md) where-in they create bespoke function for the servers and clients they produce.
