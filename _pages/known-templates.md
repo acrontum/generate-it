@@ -18,8 +18,8 @@ Below you can see the list of templates available for use with Generate-it
   - A server side typescript client
   - Default uses axios but the http service can be overridden
 
-The tools and templates maintained by 
-https://github.com/orgs/acrontum/teams/generate-it/repositories
+The tools and templates maintained by [acrontum](https://www.acrontum.com):
+ - https://github.com/orgs/acrontum/teams/generate-it/repositories
 
 A list of ideas for the future:
 - A set of templates for Nest.JS
