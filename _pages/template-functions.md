@@ -6,9 +6,9 @@ All files are rendered by using the [nunjucks](https://mozilla.github.io/nunjuck
 
 To extend the functionality of Nunjucks, [lodash](https://lodash.com/docs/4.17.15) has also been injected into the mix. In this [docker-compose.yml](https://github.com/acrontum/openapi-nodegen-typescript-server/blob/master/docker-compose.yml#L11) file you can see how to access lodash within a template. 
 
-## Openapi-nodegen built-in tpl helpers
+## generate-it built-in tpl helpers
 
-The core also offers a few additional [helper functions](https://github.com/acrontum/openapi-nodegen/tree/master/src/lib/template/helpers). Each file is injected as the file is called into the tpl engine.
+The core also offers a few additional [helper functions](https://github.com/acrontum/generate-it/tree/master/src/lib/template/helpers). Each file is injected as the file is called into the tpl engine.
 
 To see the full data object that was passed to any template called the function `getContext()` for example:
 ```

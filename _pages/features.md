@@ -17,7 +17,7 @@ To help ensure backward compatibility of future releases of the core and the tem
 
 Targeting is handled using the same pattern seen with NPM via a trailing *#<version|branch>*
 ```
-openapi-nodegen apifile.yml -t https://github.com/acrontum/openapi-nodegen-typescript-server.git#3.0.6
+generate-it apifile.yml -t https://github.com/acrontum/openapi-nodegen-typescript-server.git#3.0.6
 ```
 
 ###### Example
@@ -62,9 +62,9 @@ If you are working alone and don't like to see too much output in the console al
 ```
 A [command line](/_pages/cli.md) argument option.
 
-Based on the definition of the responses in the swagger/openapi file automatically return mocked responses from a generated API with the [openapi-nodegen-mockers](https://www.npmjs.com/package/openapi-nodegen-mockers) package.
+Based on the definition of the responses in the swagger/openapi file automatically return mocked responses from a generated API with the [generate-it-mockers](https://www.npmjs.com/package/generate-it-mockers) package.
 
-The [openapi-nodegen-typescript-server](https://github.com/acrontum/openapi-nodegen-typescript-server/) use of the `--mocked` flag to injected openapi-nodegen-mockers into the [domain methods](https://github.com/acrontum/openapi-nodegen-typescript-server/blob/master/src/domains/___stub.ts.njk#L19). This allows a team to design an API first, setup a microservice quickly to deliver mocked data thus allowing the frontend dev(s) and backend dev(s) to then build without depending on each other.
+The [generate-it-typescript-server](https://github.com/acrontum/openapi-nodegen-typescript-server/) use of the `--mocked` flag to injected generate-it-mockers into the [domain methods](https://github.com/acrontum/openapi-nodegen-typescript-server/blob/master/src/domains/___stub.ts.njk#L19). This allows a team to design an API first, setup a microservice quickly to deliver mocked data thus allowing the frontend dev(s) and backend dev(s) to then build without depending on each other.
 
 ## Pass full request object to ___stub method
 

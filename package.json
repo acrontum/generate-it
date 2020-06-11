@@ -1,5 +1,5 @@
 {
-  "name": "openapi-nodegen-gh-pages",
+  "name": "generate-it-gh-pages",
   "version": "1.0.0",
   "description": "Automate the donkey work of manually typing out the HTTP layer of a your RESTful API servers and clients.",
   "main": "index.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/acrontum/openapi-nodegen.git"
+    "url": "git+https://github.com/acrontum/generate-it.git"
   },
   "author": "Acrontum GmbH",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/acrontum/openapi-nodegen/issues"
+    "url": "https://github.com/acrontum/generate-it/issues"
   },
-  "homepage": "https://github.com/acrontum/openapi-nodegen#readme",
+  "homepage": "https://github.com/acrontum/generate-it#readme",
   "dependencies": {
     "docsify": "^4.9.4"
   },
