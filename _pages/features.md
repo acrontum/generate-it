@@ -84,7 +84,10 @@ With GET routes for the following paths:
 GET /item/
 GET /item/{id}
 GET /item/{id}/comment
+GET /item/{id}/comment/{commentId}
+GET /item/{id}/comment/{commentId}/like
 GET /item/{id}/photo
+GET /item/{id}/photo/{photoId}
 
 GET /user/
 GET /user/{id}
