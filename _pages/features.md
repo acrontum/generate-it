@@ -100,6 +100,7 @@ UserDomain.ts
 UserSettingsDomain.ts
 ```
 
+It is advisable to generate your API 1st using the cli arg `--segment-first-grouping <number>` then retain the setting in the .nodegenrc as illustrated above.
 
 ## Mocked responses
 ```
