@@ -55,6 +55,51 @@ A [command line](/_pages/cli.md) argument option when passed will not run the co
 
 If you are working alone and don't like to see too much output in the console all the time use this flag to turn the comparison tool off.
 
+## Nested stub files - aka nested domains
+The default config will result in each stub file named after the 1st URL segment, each domain then houses a method representing each HTTP verb under this 1st segment no matter how nested.
+Over time an API can get begin to hold a lot of routes resulting in the said class files containing many methods which is cumbersome to maintain. 
+
+It is possible to break a domain down into 2 with the `segmentFirstGrouping: <number>` directive in the rc file or via `--segment-first-grouping <number>` passed as a command line argument.
+
+The net result will be to group all methods up to nth segement in 1 domain and the rest in the 2nd.
+
+Example:
+```
+{
+  "nodegenDir": "src/http/nodegen",
+  "nodegenMockDir": "src/domains/__mocks__",
+  "nodegenType": "server",
+  "segmentFirstGrouping": 2,
+  "helpers": {
+    "stub": {
+      "jwtType": "JwtAccess",
+      "requestType": "NodegenRequest"
+    }
+  }
+}
+```
+
+With GET routes for the following paths:
+```
+GET /item/
+GET /item/{id}
+GET /item/{id}/comment
+GET /item/{id}/photo
+
+GET /user/
+GET /user/{id}
+GET /user/{id}/settings
+```
+
+Will result in the following domain files:
+```
+ItemDomain.ts
+ItemCommentDomain.ts
+ItemPhotoDomain.ts
+UserDomain.ts
+UserSettingsDomain.ts
+```
+
 
 ## Mocked responses
 ```
