@@ -59,6 +59,7 @@ If you are working alone and don't like to see too much output in the console al
 The default config will result in each stub file named after the 1st URL segment, each domain then houses a method representing each HTTP verb under this 1st segment no matter how nested.
 Over time an API can get begin to hold a lot of routes resulting in the said class files containing many methods which is cumbersome to maintain. 
 
+#### segmentFirstGrouping
 It is possible to break a domain down into 2 with the `segmentFirstGrouping: <number>` directive in the rc file or via `--segment-first-grouping <number>` passed as a command line argument.
 
 The net result will be to group all methods up to nth segement in 1 domain and the rest in the 2nd.
@@ -104,6 +105,30 @@ UserSettingsDomain.ts
 ```
 
 It is advisable to generate your API 1st using the cli arg `--segment-first-grouping <number>` then retain the setting in the .nodegenrc as illustrated above.
+
+#### segmentSecondGrouping
+It is possible to break down the domain files further by use of the `segmentSecondGrouping`. This feature can only be used if the `segmentFirstGrouping` is also set.
+The `segmentSecondGrouping` expects a number greater that the 1st grouping and is relative to the whole path.
+
+Example:
+```
+{
+  ...
+  "segmentFirstGrouping": 2,
+  "segmentSecondGrouping": 4,
+  ...
+}
+```
+
+This path:
+```
+GET /item/{id}/comment/{commentId}/like
+```
+
+Would result in a domain of:
+```
+ItemCommentLike
+```
 
 ## Mocked responses
 ```
