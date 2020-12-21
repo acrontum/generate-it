@@ -8,7 +8,7 @@ Options:
   -V, --version                       output the version number
   -m, --mocked                        If passed, the domains will be configured to return dummy content.
   -o, --output <outputDir>            directory where to put the rabbitMQ files (defaults to current directory) (default: "/home/carmichael/code/opensource/generate-it")
-  -t, --template <helpers>            Full URL to a public git repo, eg github
+  -t, --template <helpers>            Full URL to a public git repo, eg github, or path to template directory
   --dont-update-tpl-cache             If the given git url is already cached does not attempt to update (default: false)
   --dont-run-comparison-tool          Skips the stub file comparison tool and version cleanup (default: false)
   --segment-first-grouping <number>   If set will split a domain by group the 1 qty of segments defined in this setting, see endpointNameCalculation.ts
