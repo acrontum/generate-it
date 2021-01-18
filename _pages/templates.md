@@ -16,7 +16,10 @@ Example:
   "helpers": {
     "stub": {
       "jwtType": "JwtAccess",
-      "requestType": "NodegenRequest"
+      "requestType": "NodegenRequest",
+      "tests": {
+        "outDir": "src/domains/__tests__"
+      }
     }
   }
 }
