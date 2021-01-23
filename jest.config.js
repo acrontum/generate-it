@@ -3,6 +3,7 @@ const ignore = [
   '/node_modules/',
   '/build/',
   '/dist/',
+  '/test_*',
 ];
 
 module.exports = {
